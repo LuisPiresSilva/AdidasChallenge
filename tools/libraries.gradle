@@ -1,0 +1,91 @@
+ext.libraries = [
+
+    kotlin  : [
+        base: "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    ],
+
+
+
+    androidJetpack : [
+        constraintLayout : "androidx.constraintlayout:constraintlayout:$versions.androidJetpackConstraintlayoutVersion",
+        cardView : "androidx.cardview:cardview:$versions.androidJetpackCardviewVersion",
+        multidex : "androidx.multidex:multidex:$versions.androidJetpackMultidexVersion",
+        work : "androidx.work:work-runtime-ktx:$versions.androidJetpackWorkVersion",
+        browser : "androidx.browser:browser:$versions.androidJetpackBrowserVersion",
+        recyclerView : "androidx.recyclerview:recyclerview:$versions.androidJetpackRecyclerviewVersion",
+        paging : "androidx.paging:paging-runtime:$versions.androidJetpackPagingVersion",
+        base : "androidx.appcompat:appcompat:$versions.androidJetpackVersion",
+        recyclerViewSelection : "androidx.recyclerview:recyclerview-selection:$versions.androidJetpackRecyclerviewselectionVersion"
+    ],
+
+    kotlinAndroid : [
+        core : "androidx.core:core-ktx:$versions.kotlinAndroidVersion"
+    ],
+
+    androidMaterialComponents : [
+        design : "com.google.android.material:material:$versions.androidMaterialComponentsVersion"
+    ],
+
+    androidJetpackLifecycle : [
+        lifecycle : "androidx.lifecycle:lifecycle-extensions:$versions.androidJetpackLifecycleVersion",
+        lifecycleCompiler : "androidx.lifecycle:lifecycle-compiler:$versions.androidJetpackLifecycleVersion",
+        livedata : "androidx.lifecycle:lifecycle-livedata:$versions.androidJetpackLifecycleVersion",
+        savedState : "androidx.lifecycle:lifecycle-viewmodel-savedstate:$versions.androidJetpackLifecycleSavedstateVersion",
+        lifecycleRuntime : "androidx.lifecycle:lifecycle-runtime:$versions.androidJetpackLifecycleVersion",
+        viewModelKotlin : "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.androidJetpackLifecycleVersion",
+        viewModel : "androidx.lifecycle:lifecycle-viewmodel:$versions.androidJetpackLifecycleVersion"
+    ],
+
+    room : [
+            base : "androidx.room:room-runtime:$versions.roomVersion",
+            compiler : "androidx.room:room-compiler:$versions.roomVersion",
+            testing : "androidx.room:room-testing:$versions.roomVersion"
+    ],
+
+    dagger : [
+        androidSupport : "com.google.dagger:dagger-android-support:$versions.daggerVersion",
+        compiler : "com.google.dagger:dagger-compiler:$versions.daggerVersion",
+        androidProcessor : "com.google.dagger:dagger-android-processor:$versions.daggerVersion",
+        android : "com.google.dagger:dagger-android:$versions.daggerVersion",
+        base : "com.google.dagger:dagger:$versions.daggerVersion"
+    ],
+
+    adal : [
+        utils : "com.massivedisaster.adal:adal-utils:$versions.adalVersion",
+        accounts : "com.massivedisaster.adal:adal-accounts:$versions.adalVersion"
+    ],
+
+    firebase : [
+        performance : "com.google.firebase:firebase-perf:$versions.firebasePerformanceVersion",
+        crashlytics : "com.google.firebase:firebase-crashlytics:$versions.firebaseCrashlyticsVersion",
+        base : "com.google.firebase:firebase-analytics:$versions.firebaseVersion",
+        messaging : "com.google.firebase:firebase-messaging:$versions.firebaseMessagingVersion"
+    ],
+
+    glide : [
+        compiler : "com.github.bumptech.glide:compiler:$versions.glideVersion",
+        base : "com.github.bumptech.glide:glide:$versions.glideVersion"
+    ],
+
+    retrofit : [
+        logging : "com.squareup.okhttp3:logging-interceptor:$versions.retrofitLoggingVersion",
+        xmlConverter : "com.squareup.retrofit2:converter-simplexml:$versions.retrofitXmlconverterVersion",
+        jackson : "com.fasterxml.jackson.module:jackson-module-kotlin:$versions.retrofitJacksonVersion",
+        jacksonConverter : "com.squareup.retrofit2:converter-jackson:$versions.retrofitVersion",
+        base : "com.squareup.retrofit2:retrofit:$versions.retrofitVersion"
+    ],
+
+    threetenabp : [
+        base : "com.jakewharton.threetenabp:threetenabp:$versions.threetenabpVersion"
+    ],
+
+    permissionsDispatcher : [
+        android : "org.permissionsdispatcher:permissionsdispatcher-processor:$versions.permissionsDispatcherVersion",
+        base : "org.permissionsdispatcher:permissionsdispatcher:$versions.permissionsDispatcherVersion"
+    ],
+
+    timber : [
+        base : "com.jakewharton.timber:timber:$versions.timberVersion"
+    ]
+
+]

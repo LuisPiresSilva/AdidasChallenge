@@ -1,0 +1,16 @@
+#Slack
+ENV["SLACK_URL"] = "-"
+ENV["FL_SLACK_ICON_URL"] = "https://wiki.jenkins.io/download/attachments/2916393/headshot.png?version=1&modificationDate=1302753947000&api=v2"
+ENV["FL_SLACK_DEFAULT_PAYLOADS"] = ":lane"
+ENV["FL_SLACK_USERNAME"] = "Jenkins Android"
+ENV["FL_SLACK_CHANNEL"] = "-"
+
+#Testfairy
+ENV["TEST_FAIRY_API_KEY"] = "-"
+ENV["TEST_FAIRY_TESTER_GROUP"] = ["fastlane"]
+
+#Firebase
+ENV["FIREBASE_APP_ID_DEV"] = "-"
+ENV["FIREBASE_APP_ID_PROD"] = "-"
+ENV["FIREBASE_APP_ID_QA"] = "-"
+ENV["FIREBASE_GROUPS"] = "fastlane"

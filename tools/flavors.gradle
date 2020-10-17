@@ -1,0 +1,35 @@
+apply from: "$project.rootDir/tools/settings.gradle"
+
+android {
+
+    flavorDimensions 'build'
+
+    productFlavors {
+
+        app {
+            dimension 'build'
+
+            extension.appName "Adidas Challenge"
+            extension.setEndpoints([
+                qa: "https://thebigachallenge.appspot.com/_ah/api/myApi/v1/",
+                prod: "https://thebigachallenge.appspot.com/_ah/api/myApi/v1/",
+                dev: "https://thebigachallenge.appspot.com/_ah/api/myApi/v1/"
+            ])
+            extension.setManifestKeys([
+                qa: [
+                    onesignal_google_project_number: "-",
+                    onesignal_app_id: "-"
+                ],
+                prod: [
+                    onesignal_google_project_number: "-",
+                    onesignal_app_id: "-"
+                ],
+                dev: [
+                    onesignal_google_project_number: "-",
+                    onesignal_app_id: "-"
+                ]
+            ])
+        }
+
+    }
+}

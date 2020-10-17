@@ -1,0 +1,85 @@
+{
+  "project_info": {
+    "project_number": "476633183673",
+    "firebase_url": "https://neural-water-292806.firebaseio.com",
+    "project_id": "neural-water-292806",
+    "storage_bucket": "neural-water-292806.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:476633183673:android:e12f1c8b1ac7f0e38fb268",
+        "android_client_info": {
+          "package_name": "com.adidas.luissilva"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "476633183673-p456ctbjnatii5is5kctvte7hs4qtejd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.adidas.luissilva",
+            "certificate_hash": "847ccdf27619a51a5c9401bb92c55d1d781339e6"
+          }
+        },
+        {
+          "client_id": "476633183673-iijgfq9im5u5vfmomqtvl0e1v80nn1vi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDF5_FFH2pbfBzLXC6_C-eNrKK9tQd5ss"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "476633183673-iijgfq9im5u5vfmomqtvl0e1v80nn1vi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:476633183673:android:6156c309449e29508fb268",
+        "android_client_info": {
+          "package_name": "com.adidas.luissilva.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "476633183673-ibikiminqlcokav755cpfmtuqr1vjlt9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.adidas.luissilva.dev",
+            "certificate_hash": "847ccdf27619a51a5c9401bb92c55d1d781339e6"
+          }
+        },
+        {
+          "client_id": "476633183673-iijgfq9im5u5vfmomqtvl0e1v80nn1vi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDF5_FFH2pbfBzLXC6_C-eNrKK9tQd5ss"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "476633183673-iijgfq9im5u5vfmomqtvl0e1v80nn1vi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

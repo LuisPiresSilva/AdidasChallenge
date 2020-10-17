@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="generic_no_content_text">There is no data available</string>
+    <string name="generic_error_retry_text">There was a problem fetching your content</string>
+    <string name="generic_object_text">There was a problem fetching your content</string>
+
+    <string name="error_generic_title">Error</string>
+    <string name="error_generic_body">An unexpected error occurred.</string>
+
+    <string name="generic_internet_connection_error_title">Internet Error</string>
+    <string name="generic_internet_connection_error_body">Please check your internet connectivity</string>
+
+    <string name="btn_retry">Try again</string>
+</resources>

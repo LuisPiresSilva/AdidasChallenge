@@ -1,0 +1,80 @@
+apply from: "$project.rootDir/tools/libraries.gradle"
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    /* KOTLIN */
+    implementation libraries.kotlin.base
+
+    /* ANDROID JETPACK */
+    implementation libraries.androidJetpack.constraintLayout
+    implementation libraries.androidJetpack.cardView
+    implementation libraries.androidJetpack.multidex
+    implementation libraries.androidJetpack.work
+    implementation libraries.androidJetpack.browser
+    implementation libraries.androidJetpack.recyclerView
+    implementation libraries.androidJetpack.paging
+    implementation libraries.androidJetpack.base
+    implementation libraries.androidJetpack.recyclerViewSelection
+
+    /* KOTLIN ANDROID */
+    implementation libraries.kotlinAndroid.core
+
+    /* ANDROID MATERIAL COMPONENTS */
+    implementation libraries.androidMaterialComponents.design
+
+    /* ANDROID JETPACK LIFECYCLE */
+    implementation libraries.androidJetpackLifecycle.lifecycle
+    kapt libraries.androidJetpackLifecycle.lifecycleCompiler
+    implementation libraries.androidJetpackLifecycle.livedata
+    implementation libraries.androidJetpackLifecycle.savedState
+    implementation libraries.androidJetpackLifecycle.lifecycleRuntime
+    implementation libraries.androidJetpackLifecycle.viewModelKotlin
+    implementation libraries.androidJetpackLifecycle.viewModel
+
+    /* ROOM */
+    implementation libraries.room.base
+    kapt libraries.room.compiler
+
+    /* DAGGER */
+    implementation libraries.dagger.androidSupport
+    kapt libraries.dagger.compiler
+    kapt libraries.dagger.androidProcessor
+    implementation libraries.dagger.android
+    implementation libraries.dagger.base
+
+    /* ADAL */
+    implementation libraries.adal.utils
+    implementation libraries.adal.accounts
+
+    /* FIREBASE */
+    implementation libraries.firebase.crashlytics
+    implementation libraries.firebase.base
+
+    /* GLIDE */
+    kapt libraries.glide.compiler
+    implementation libraries.glide.base
+
+    /* RETROFIT */
+    implementation libraries.retrofit.logging
+    implementation libraries.retrofit.xmlConverter
+    implementation libraries.retrofit.jackson
+    implementation libraries.retrofit.jacksonConverter
+    implementation libraries.retrofit.base
+
+    /* THREETENABP */
+    implementation libraries.threetenabp.base
+
+    /* PERMISSIONS DISPATCHER */
+    kapt libraries.permissionsDispatcher.android
+    implementation libraries.permissionsDispatcher.base
+
+    /* TIMBER */
+    implementation libraries.timber.base
+
+
+    /* TESTING */
+    testImplementation libraries.room.testing
+
+
+}
