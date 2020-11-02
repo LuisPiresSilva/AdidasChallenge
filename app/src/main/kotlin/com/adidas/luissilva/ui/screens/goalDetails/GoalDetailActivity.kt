@@ -47,13 +47,6 @@ class GoalDetailActivity : BaseActivity<ActivityGoalDetailBinding, GoalDetailVie
         const val GOOGLE_FIT_PERMISSIONS_REQUEST_CODE = 1896
     }
 
-    @Inject
-    lateinit var callManager: CallManager
-
-    @Inject
-    lateinit var preferencesManager: PreferencesManager
-
-
     override var drawBehindStatusBar = true
     override var darkStatusIcons = true
 
