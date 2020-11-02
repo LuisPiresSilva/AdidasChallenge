@@ -23,7 +23,6 @@ class FetchGoalsWorker (context: Context, workerParams: WorkerParameters) : Work
                 .build()
 
         fun startUniqueUITask(ctx: Context) : UUID {
-            Timber.i("UI")
             val worker = OneTimeWorkRequestBuilder<FetchGoalsWorker>()
                     .setInputData(Data.Builder().putBoolean("Retry", false).build())
                     .build()
@@ -37,7 +36,6 @@ class FetchGoalsWorker (context: Context, workerParams: WorkerParameters) : Work
         }
 
         fun startUniqueGlobalTask(ctx: Context) : UUID {
-            Timber.i("GLOBAL")
             val worker = OneTimeWorkRequestBuilder<FetchGoalsWorker>()
                     .setConstraints(constraints)
                     .setBackoffCriteria(

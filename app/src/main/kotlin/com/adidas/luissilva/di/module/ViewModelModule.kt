@@ -7,6 +7,7 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 import com.adidas.luissilva.di.annotations.ViewModelKey
 import com.adidas.luissilva.di.factory.ViewModelFactory
+import com.adidas.luissilva.ui.dialog.ErrorDialogViewModel
 import com.adidas.luissilva.ui.screens.goalDetails.GoalDetailViewModel
 import com.adidas.luissilva.ui.screens.goals.GoalsViewModel
 
@@ -15,6 +16,11 @@ abstract class ViewModelModule {
 
     @Binds
     abstract fun bindsViewModelFactory(viewModelFactory: ViewModelFactory): ViewModelProvider.Factory
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ErrorDialogViewModel::class)
+    abstract fun bindsErrorDialogViewModel(errorDialogViewModel: ErrorDialogViewModel): ViewModel
 
     @Binds
     @IntoMap

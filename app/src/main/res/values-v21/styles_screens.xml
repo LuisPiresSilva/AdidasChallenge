@@ -1,0 +1,8 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application screens. -->
+
+    <style name="screen_default" parent="AppTheme.NoActionBar">
+
+    </style>
+
+</resources>

@@ -75,6 +75,21 @@ dependencies {
 
     /* TESTING */
     testImplementation libraries.room.testing
+    testImplementation libraries.testing.testJUnit
+    androidTestImplementation libraries.testing.androidRunner
+    androidTestImplementation libraries.testing.androidJUnit
+    androidTestImplementation libraries.testing.androidRules
+
+    androidTestImplementation libraries.testing.androidEspresso
+    androidTestImplementation libraries.testing.androidEspressoContrib
+
+    testImplementation libraries.testing.testMockito
+    testImplementation libraries.testing.testArchCore
+
+    androidTestImplementation libraries.testing.androidMockito
+    androidTestImplementation libraries.testing.androidTestCore
+    androidTestImplementation libraries.testing.androidUiAutomator
+    androidTestImplementation libraries.testing.androidUiHamcrest
 
 
 }

@@ -3,29 +3,146 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_margin="12dp"
+        android:animateLayoutChanges="true"
+        android:fitsSystemWindows="true">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/goals_logo"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/topAppBar"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:src="@drawable/adidas_logo"
+            android:layout_height="?attr/actionBarSize"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintHeight_percent="0.05"
-            android:layout_marginTop="20dp"/>
+            app:title=""
+            app:navigationIcon="@drawable/ic_back"
+            android:theme="@style/ThemeOverlay.AppCompat.Light"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/goals_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/adidas_logo"
+                android:layout_gravity="center"/>
 
-        <TextView
+        </androidx.appcompat.widget.Toolbar>
+
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/goal_detail_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
+            android:layout_marginTop="24dp"
             android:gravity="center"
-            app:layout_constraintTop_toBottomOf="@+id/goals_logo"/>
+            android:textColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/topAppBar" />
 
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/goal_detail_data_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:animateLayoutChanges="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/goal_detail_id">
+
+            <com.google.android.material.progressindicator.ProgressIndicator
+                android:id="@+id/goal_detail_progress_indicator"
+                style="@style/Widget.MaterialComponents.ProgressIndicator.Circular.Determinate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                app:circularRadius="100dp"
+                app:indicatorColor="@color/black"
+                app:indicatorType="circular"
+                app:indicatorWidth="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:trackColor="@android:color/transparent" />
+
+            <!--        x = sqrt( sq(diameter) / 2) -->
+            <!--        minus a bit and some padding-->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/goal_detail_progress_text"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:gravity="center"
+                android:padding="6dp"
+                android:textColor="@color/black"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/goal_detail_progress_indicator"
+                app:layout_constraintEnd_toEndOf="@+id/goal_detail_progress_indicator"
+                app:layout_constraintStart_toStartOf="@+id/goal_detail_progress_indicator"
+                app:layout_constraintTop_toTopOf="@+id/goal_detail_progress_indicator" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/goal_detail_error_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:animateLayoutChanges="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/goal_detail_id"
+            android:visibility="gone">
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/goal_detail_error_text_body"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginVertical="10dp"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toTopOf="@+id/goal_detail_error_btn_retry"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"
+                app:layout_constraintWidth_percent="0.5"
+                tools:text="--Body--" />
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/goal_detail_error_btn_retry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="@color/black"
+                android:elevation="0dp"
+                android:gravity="center"
+                android:minWidth="140dp"
+                android:padding="12dp"
+                android:stateListAnimator="@drawable/btn_click_shadow_effect_8dp"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                app:cornerRadius="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/goal_detail_error_text_body"
+                app:layout_constraintVertical_bias="0.5"
+                app:rippleColor="@null"
+                tools:text="--Retry--" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </layout>

@@ -97,7 +97,9 @@ class ErrorDialog : BaseDialog<DialogErrorBinding, ErrorDialogViewModel>() {
             }
         }
 
+
         dataBinding.bkg.setOnClickListener {
+            cancelExecution!!.invoke()
             dismiss()
         }
     }
@@ -122,3 +124,4 @@ class ErrorDialog : BaseDialog<DialogErrorBinding, ErrorDialogViewModel>() {
     }
 
 }
+

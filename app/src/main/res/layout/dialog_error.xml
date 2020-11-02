@@ -38,7 +38,9 @@
             app:layout_constraintBottom_toBottomOf="@id/guideline"
             app:layout_constraintEnd_toStartOf="@+id/marginEnd"
             app:layout_constraintStart_toStartOf="@+id/marginStart"
-            app:layout_constraintTop_toTopOf="@id/guideline">
+            app:layout_constraintTop_toTopOf="@id/guideline"
+            android:clickable="true"
+            android:focusable="true">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -53,6 +55,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:srcCompat="@drawable/ic_error"
+                    android:tint="@color/black"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
@@ -94,7 +97,8 @@
                     android:layout_marginEnd="20dp"
                     android:layout_marginTop="32dp"
                     android:visibility="visible"
-                    android:background="@drawable/secondary_button_shape"
+                    android:background="@drawable/bg_round6_stroke_corners"
+                    android:backgroundTint="@color/black"
                     android:foreground="?attr/selectableItemBackground"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/btn_ok"
@@ -116,7 +120,8 @@
                     android:layout_height="wrap_content"
                     android:visibility="visible"
                     android:layout_marginTop="32dp"
-                    android:background="@drawable/principal_button_shape"
+                    android:background="@drawable/bg_round6_corners"
+                    android:backgroundTint="@color/black"
                     android:foreground="?attr/selectableItemBackground"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

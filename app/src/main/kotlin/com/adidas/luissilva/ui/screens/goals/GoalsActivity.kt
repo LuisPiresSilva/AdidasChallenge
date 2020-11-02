@@ -41,6 +41,10 @@ class GoalsActivity : BaseActivity<ActivityGoalsBinding, GoalsViewModel>() {
     lateinit var preferencesManager: PreferencesManager
 
 
+    override var drawBehindStatusBar = true
+    override var darkStatusIcons = true
+
+
     override fun layoutToInflate() = R.layout.activity_goals
 
     override fun getViewModelClass() = GoalsViewModel::class.java
@@ -48,6 +52,7 @@ class GoalsActivity : BaseActivity<ActivityGoalsBinding, GoalsViewModel>() {
     private val goalsAdapter = GoalsAdapter(::genericCardClickBlock, ::itemClickBlock, ::genericCardErrorBlock)
 
     override fun doOnCreated() {
+
         viewModel.goals.observe(this, Observer {
             if (it.isEmpty()) {
                 goalsAdapter.setList(GenericStateCard.getLoadingEmptyList())

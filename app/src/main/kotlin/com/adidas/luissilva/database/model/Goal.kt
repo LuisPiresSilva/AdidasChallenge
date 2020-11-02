@@ -13,7 +13,7 @@ data class Goal(
         @ColumnInfo(name = "id")
         val id: String,
         @ColumnInfo(name = "description")
-        val description: String,
+        var description: String,
         @ColumnInfo(name = "goal")
         val goal: Int,
 

@@ -10,6 +10,7 @@ import android.view.View.*
 import android.view.Window
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import androidx.annotation.ColorInt
 import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
@@ -40,8 +41,10 @@ abstract class BaseActivity<T : ViewDataBinding, VM : ViewModel> : AppCompatActi
     companion object {
         @JvmField
         val ACTIVITY_MANAGER_FRAGMENT = "ACTIVITY_MANAGER_FRAGMENT"
+
         @JvmField
         val ACTIVITY_MANAGER_FRAGMENT_TAG = "ACTIVITY_MANAGER_FRAGMENT_TAG"
+
         @JvmField
         val ACTIVITY_MANAGER_FRAGMENT_SHARED_ELEMENTS = "ACTIVITY_MANAGER_FRAGMENT_SHARED_ELEMENTS"
 
@@ -56,6 +59,10 @@ abstract class BaseActivity<T : ViewDataBinding, VM : ViewModel> : AppCompatActi
 
     //to draw behind potential transparent status bar
     open var drawBehindStatusBar = false
+
+    //set dark status bar icons
+    open var darkStatusIcons = false
+
     //to draw behind potential transparent bottom navigation bar
     open var drawBehindBottomNavigation = false
 
@@ -97,15 +104,17 @@ abstract class BaseActivity<T : ViewDataBinding, VM : ViewModel> : AppCompatActi
             requestWindowFeature(Window.FEATURE_CONTENT_TRANSITIONS)
         }
 
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+
         if (drawBehindStatusBar && drawBehindBottomNavigation) {
-           window.decorView.systemUiVisibility = SYSTEM_UI_FLAG_LAYOUT_STABLE or SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+            window.decorView.systemUiVisibility = SYSTEM_UI_FLAG_LAYOUT_STABLE or SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
         } else {
-           if (drawBehindStatusBar) {
-               window.decorView.systemUiVisibility = SYSTEM_UI_FLAG_LAYOUT_STABLE or SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-           }
-           if (drawBehindBottomNavigation) {
-               window.decorView.systemUiVisibility = SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-           }
+            if (drawBehindStatusBar) {
+                window.decorView.systemUiVisibility = SYSTEM_UI_FLAG_LAYOUT_STABLE or SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+            }
+            if (drawBehindBottomNavigation) {
+                window.decorView.systemUiVisibility = SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+            }
         }
 
         AndroidInjection.inject(this)
@@ -115,8 +124,8 @@ abstract class BaseActivity<T : ViewDataBinding, VM : ViewModel> : AppCompatActi
 
         super.onCreate(savedInstanceState)
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
-        if(adjustNothing) {
-           window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
+        if (adjustNothing) {
+            window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
         }
         initDataBinding()
         if (supportFragmentManager.fragments.isEmpty() && supportFragmentManager.backStackEntryCount == 0) {
@@ -128,6 +137,10 @@ abstract class BaseActivity<T : ViewDataBinding, VM : ViewModel> : AppCompatActi
         }
 
         doOnCreated()
+
+        if (darkStatusIcons) {
+            setStatusBarDarkAppearance()
+        }
         //setSystemBarTransparent()
     }
 
@@ -152,148 +165,157 @@ abstract class BaseActivity<T : ViewDataBinding, VM : ViewModel> : AppCompatActi
     }
 
 
-
-
-
-
-
-
-
-
-     protected open fun getDefaultFragment(): Class<out Fragment>? {
+    protected open fun getDefaultFragment(): Class<out Fragment>? {
         Log.w("BaseActivity", "No default fragment implemented!")
         return null
-     }
+    }
 
-     override fun onDestroy() {
+    override fun onDestroy() {
         dataBinding.unbind()
         super.onDestroy()
-     }
+    }
 
-     protected open fun loadInitialFragment() { }
+    protected open fun loadInitialFragment() {}
 
-     override fun onStop() {
+    override fun onStop() {
         val inputManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputManager.hideSoftInputFromWindow(currentFocus?.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
 
         super.onStop()
-     }
+    }
 
-     private fun initDataBinding() {
+    private fun initDataBinding() {
         dataBinding.lifecycleOwner = this
-     }
+    }
 
-     /**
-      * Perform a transaction of a fragment.
-      *
-      * @param fragment the fragment to be applied.
-      * @param tag      the tag to be applied.
-      */
-      private fun performInitialTransaction(fragment: Fragment?, tag: String?) {
-         if (fragment != null) {
+    /**
+     * Perform a transaction of a fragment.
+     *
+     * @param fragment the fragment to be applied.
+     * @param tag      the tag to be applied.
+     */
+    private fun performInitialTransaction(fragment: Fragment?, tag: String?) {
+        if (fragment != null) {
             val fragmentTransaction = supportFragmentManager.beginTransaction()
             fragmentTransaction.replace(containerId(), fragment, tag)
             fragmentTransaction.commitNow()
-         }
-      }
+        }
+    }
 
-      override val animationEnter = android.R.anim.fade_in
-      override val animationExit = android.R.anim.fade_out
-      override val animationPopEnter = android.R.anim.fade_in
-      override val animationPopExit = android.R.anim.fade_out
+    override val animationEnter = android.R.anim.fade_in
+    override val animationExit = android.R.anim.fade_out
+    override val animationPopEnter = android.R.anim.fade_in
+    override val animationPopExit = android.R.anim.fade_out
 
-      private fun getFragmentTag() = intent.getStringExtra(ACTIVITY_MANAGER_FRAGMENT_TAG)
+    private fun getFragmentTag() = intent.getStringExtra(ACTIVITY_MANAGER_FRAGMENT_TAG)
 
-      /**
-       * Get a new instance of the Fragment by name.
-       * @param clazz the canonical Fragment name.
-       * *
-       * @return the instance of the Fragment.
-       */
-      private fun getFragment(clazz: String): Fragment? {
-          try {
-              val fragment = Class.forName(clazz).newInstance() as Fragment
+    /**
+     * Get a new instance of the Fragment by name.
+     * @param clazz the canonical Fragment name.
+     * *
+     * @return the instance of the Fragment.
+     */
+    private fun getFragment(clazz: String): Fragment? {
+        try {
+            val fragment = Class.forName(clazz).newInstance() as Fragment
 
-               if (intent.extras != null) {
-                   fragment.arguments = intent.extras
-               }
+            if (intent.extras != null) {
+                fragment.arguments = intent.extras
+            }
 
-               return fragment
-           } catch (e: Exception) {
-               e.printStackTrace()
-           }
-
-           return null
-      }
-
-      override fun onBackPressed() {
-           if (!canBackPress()) {
-               super.onBackPressed()
-           }
-      }
-
-       /**
-        * Checks if the active fragment wants to consume the back press.
-        * @return false if the fragment wants the activity to call super.onBackPressed, otherwise nothing will happen.
-        */
-        private fun canBackPress(): Boolean {
-           val activeFragment = getActiveFragment()
-           return activeFragment != null
-               && activeFragment is OnBackPressedListener
-               && (activeFragment as OnBackPressedListener).onBackPressed()
+            return fragment
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
 
-        /**
-         * Gets the active fragment.
-         * @return the active fragment.
-         */
-         fun getActiveFragment() = supportFragmentManager.findFragmentById(containerId())
+        return null
+    }
 
-         /**
-          * Defines a transition animation to the given activity
-          *
-          * @param activity      The activity for animation.
-          * @param animationType The type of the animation.
-          */
-         fun defineActivityTransitionAnimation(activity: Activity, @AnimationType animationType: Int) {
-             /*when (animationType) {
-                 Animations.LEFT -> activity.overridePendingTransition(R.anim.fragment_left_in, R.anim.fragment_right_out)
-                 Animations.RIGHT -> activity.overridePendingTransition(R.anim.fragment_right_in, R.anim.fragment_left_out)
-                 Animations.UP -> activity.overridePendingTransition(R.anim.fragment_up_in, R.anim.fragment_down_out)
-                 Animations.DOWN -> activity.overridePendingTransition(R.anim.fragment_down_in, R.anim.fragment_up_out)
-                 Animations.LEFT_IN -> activity.overridePendingTransition(R.anim.fragment_left_in, R.anim.fragment_static)
-                 Animations.RIGHT_IN -> activity.overridePendingTransition(R.anim.fragment_right_in, R.anim.fragment_static)
-                 Animations.UP_IN -> activity.overridePendingTransition(R.anim.fragment_up_in, R.anim.fragment_static)
-                 Animations.DOWN_IN -> activity.overridePendingTransition(R.anim.fragment_down_in, R.anim.fragment_static)
-                 Animations.LEFT_OUT -> activity.overridePendingTransition(R.anim.fragment_static, R.anim.fragment_left_out)
-                 Animations.RIGHT_OUT -> activity.overridePendingTransition(R.anim.fragment_static, R.anim.fragment_right_out)
-                 Animations.UP_OUT -> activity.overridePendingTransition(R.anim.fragment_static, R.anim.fragment_up_out)
-                 Animations.DOWN_OUT -> activity.overridePendingTransition(R.anim.fragment_static, R.anim.fragment_down_out)
-             }*/
-         }
+    override fun onBackPressed() {
+        if (!canBackPress()) {
+            super.onBackPressed()
+        }
+    }
 
-         open fun showLoading() {
-             hideKeyboard()
-             if (loadingDialog == null) {
-                 loadingDialog = LoadingDialog()
-             }
-             if (!loadingDialog!!.isAdded && !loadingDialog!!.isVisible) {
-                 loadingDialog!!.show(supportFragmentManager, "loading")
-                 supportFragmentManager.registerFragmentLifecycleCallbacks( object : FragmentManager.FragmentLifecycleCallbacks() {
-                     override fun onFragmentViewDestroyed(fm: FragmentManager, f: Fragment) {
-                         super.onFragmentViewDestroyed(fm, f)
-                         supportFragmentManager.unregisterFragmentLifecycleCallbacks(this)
-                         loadingDialog = null
-                     }
-                 }, false)
-             }
-         }
 
-         open fun hideLoading() {
-             if (loadingDialog != null) {
-                 loadingDialog!!.dismiss()
-             }
-         }
+    open fun setStatusBarDarkAppearance() {
+        var flags = window.decorView.systemUiVisibility
+        flags = flags or SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        window.decorView.systemUiVisibility = flags
+    }
+
+    open fun setStatusBarLightAppearance() {
+        var flags = window.decorView.systemUiVisibility
+        flags = flags and SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
+        window.decorView.systemUiVisibility = flags
+    }
+
+    open fun setStatusBarBackgroundColor(@ColorInt color: Int) {
+        window.statusBarColor = color
+    }
+
+    /**
+     * Checks if the active fragment wants to consume the back press.
+     * @return false if the fragment wants the activity to call super.onBackPressed, otherwise nothing will happen.
+     */
+    private fun canBackPress(): Boolean {
+        val activeFragment = getActiveFragment()
+        return activeFragment != null
+                && activeFragment is OnBackPressedListener
+                && (activeFragment as OnBackPressedListener).onBackPressed()
+    }
+
+    /**
+     * Gets the active fragment.
+     * @return the active fragment.
+     */
+    fun getActiveFragment() = supportFragmentManager.findFragmentById(containerId())
+
+    /**
+     * Defines a transition animation to the given activity
+     *
+     * @param activity      The activity for animation.
+     * @param animationType The type of the animation.
+     */
+    fun defineActivityTransitionAnimation(activity: Activity, @AnimationType animationType: Int) {
+        /*when (animationType) {
+            Animations.LEFT -> activity.overridePendingTransition(R.anim.fragment_left_in, R.anim.fragment_right_out)
+            Animations.RIGHT -> activity.overridePendingTransition(R.anim.fragment_right_in, R.anim.fragment_left_out)
+            Animations.UP -> activity.overridePendingTransition(R.anim.fragment_up_in, R.anim.fragment_down_out)
+            Animations.DOWN -> activity.overridePendingTransition(R.anim.fragment_down_in, R.anim.fragment_up_out)
+            Animations.LEFT_IN -> activity.overridePendingTransition(R.anim.fragment_left_in, R.anim.fragment_static)
+            Animations.RIGHT_IN -> activity.overridePendingTransition(R.anim.fragment_right_in, R.anim.fragment_static)
+            Animations.UP_IN -> activity.overridePendingTransition(R.anim.fragment_up_in, R.anim.fragment_static)
+            Animations.DOWN_IN -> activity.overridePendingTransition(R.anim.fragment_down_in, R.anim.fragment_static)
+            Animations.LEFT_OUT -> activity.overridePendingTransition(R.anim.fragment_static, R.anim.fragment_left_out)
+            Animations.RIGHT_OUT -> activity.overridePendingTransition(R.anim.fragment_static, R.anim.fragment_right_out)
+            Animations.UP_OUT -> activity.overridePendingTransition(R.anim.fragment_static, R.anim.fragment_up_out)
+            Animations.DOWN_OUT -> activity.overridePendingTransition(R.anim.fragment_static, R.anim.fragment_down_out)
+        }*/
+    }
+
+    open fun showLoading() {
+        hideKeyboard()
+        if (loadingDialog == null) {
+            loadingDialog = LoadingDialog()
+        }
+        if (!loadingDialog!!.isAdded && !loadingDialog!!.isVisible) {
+            loadingDialog!!.show(supportFragmentManager, "loading")
+            supportFragmentManager.registerFragmentLifecycleCallbacks(object : FragmentManager.FragmentLifecycleCallbacks() {
+                override fun onFragmentViewDestroyed(fm: FragmentManager, f: Fragment) {
+                    super.onFragmentViewDestroyed(fm, f)
+                    supportFragmentManager.unregisterFragmentLifecycleCallbacks(this)
+                    loadingDialog = null
+                }
+            }, false)
+        }
+    }
+
+    open fun hideLoading() {
+        if (loadingDialog != null) {
+            loadingDialog!!.dismiss()
+        }
+    }
 
 
     open fun handleError(result: CallResult<*>, title: String? = null) {
@@ -301,9 +323,11 @@ abstract class BaseActivity<T : ViewDataBinding, VM : ViewModel> : AppCompatActi
         hideError()
         val status = result.status
         when (status.error?.serverError) {
-            ServerErrors.NO_INTERNET, ServerErrors.TIMEOUT -> {}
+            ServerErrors.NO_INTERNET, ServerErrors.TIMEOUT -> {
+            }
             else -> {
-                showError(title ?: "", status.error?.error?.details ?: getString(R.string.error_generic_body), getString(R.string.btn_ok))
+                showError(title ?: "", status.error?.error?.details
+                        ?: getString(R.string.error_generic_body), getString(R.string.btn_ok))
             }
         }
     }

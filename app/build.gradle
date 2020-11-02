@@ -16,7 +16,12 @@ android {
         minSdkVersion versions.minSdk
         targetSdkVersion versions.targetSdk
         buildConfigField ("long", "API_TIMEOUT", "30")
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
+    //so that AS knows which flavor to target tests
+    testBuildType "dev"
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -93,5 +98,4 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:18.1.0'
 }
 
-//TODO add google-services.json before uncomment
 apply plugin: 'com.google.gms.google-services'

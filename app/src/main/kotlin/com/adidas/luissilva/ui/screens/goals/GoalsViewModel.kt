@@ -21,7 +21,7 @@ class GoalsViewModel @Inject constructor(
 
 
 
-    private val dbGoals = goalsDAO.getAllGoals()
+    private val dbGoals = goalsDAO.getAllGoalsObs()
     private val goalsObserver = Observer<List<Goal>> {
         it?.let {
             goals.postValue(it)
