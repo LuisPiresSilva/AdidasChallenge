@@ -18,29 +18,6 @@ Actual version: 0.0.0
 ### API Keys ###
 **DEV**
 
-***OneSignal***
-```
-OneSignal App ID: -
-Project Number: -
-Project ID: -
-```
-**QA**
-
-***OneSignal***
-```
-OneSignal App ID: -
-Project Number: -
-Project ID: -
-```
-**PROD**
-
-***OneSignal***
-```
-OneSignal App ID: -
-Project Number: -
-Project ID: -
-```
-
 ### Run information ###
 
 
